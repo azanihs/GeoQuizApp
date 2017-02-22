@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Geo Quiz</string>
+    <string name="question">Bandung is Capital City of Indonesia</string>
+    <string name="trueButton">TRUE</string>
+    <string name="falseButton">FALSE</string>
+    <string name="nextButton">NEXT</string>
+    <string name="q1">Bandung di Jawa barat</string>
+    <string name="q2">Bandung di kota kembang</string>
+    <string name="q3">Tangkuban Perahu di Jakarta</string>
+</resources>
