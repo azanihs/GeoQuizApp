@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class QuizActivity extends AppCompatActivity {
 
-    private static final String KEY_INDEX = "index";
+
 
     private TextView questionText;
     private Button trueButton;
@@ -28,15 +28,15 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d(TAG,"onCreate(Bundle) Called");
+        Log.d(TAG,"Method OnCreate() sudah dijalankan");
 
         super.onCreate(savedInstanceState);
 
-
         if(savedInstanceState != null){
-
-            quesNum = savedInstanceState.getInt(KEY_INDEX,0);
+            quesNum = savedInstanceState.getInt("index");
         }
+
+
 
 
         setContentView(R.layout.activity_quiz);
@@ -90,42 +90,40 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        Log.d(TAG,"onStart() called");
-
+        Log.d(TAG,"OnStart() sudah dijalankan");
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        Log.d(TAG,"onPause() called");
-
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        Log.d(TAG,"onResume called");
+        Log.d(TAG,"onPause() sudah dijalankan");
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d(TAG,"onStop called");
+        Log.d(TAG,"onStop() sudah dijalankan");
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Log.d(TAG,"onDestroy called");
+        Log.d(TAG,"onDestroy() sudah dijalankan");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d(TAG,"onResume() sudah dijalakan");
     }
 
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState){
-        super.onSaveInstanceState(savedInstanceState);
-        Log.i(TAG,"onSaveInstanceState() called");
-        savedInstanceState.putInt(KEY_INDEX,quesNum);
+    public void onSaveInstanceState(Bundle savedState) {
 
+        super.onSaveInstanceState(savedState);
+        Log.d(TAG,"onSaveInstanceState() telah dipanggil");
+        savedState.putInt("index",quesNum);
 
     }
 }

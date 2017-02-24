@@ -2,7 +2,6 @@ package com.deqode.android.geoquiz;
 
 /**
  * Created by dmLabs on 2/21/17.
- * this my commentsx
  */
 
 public class Questions {
