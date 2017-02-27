@@ -1,5 +1,7 @@
 package com.deqode.android.geoquiz;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,11 +14,13 @@ import android.util.Log;
 public class QuizActivity extends AppCompatActivity {
 
 
-
+    private Button mCheatButton;
+    private boolean mAnswerShown;
     private TextView questionText;
     private Button trueButton;
     private Button falseButton;
     private Button nextButton;
+    private final String EXTRA = "answer";
     private final String TAG = "QuizActivity";
     private int quesNum =0;
     Questions[] mQuestionsBank = new Questions[]{new Questions(R.string.q1,true),
@@ -40,6 +44,17 @@ public class QuizActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_quiz);
+
+        mCheatButton = (Button)findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(QuizActivity.this,CheatActivity.class);
+
+                i.putExtra(EXTRA,mQuestionsBank[quesNum].isAnswer());
+                startActivityForResult(i,0);
+            }
+        });
 
         questionText = (TextView) findViewById(R.id.question_text);
         questionText.setText(mQuestionsBank[quesNum].getTextResId());
@@ -65,6 +80,7 @@ public class QuizActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mAnswerShown =false;
                 updateQuestion();
             }
         });
@@ -73,11 +89,16 @@ public class QuizActivity extends AppCompatActivity {
 
 
     private void checkAnswer(boolean answer,boolean key){
-        if(answer&&key){
-            Toast.makeText(this,"Jawaban anda benar",Toast.LENGTH_LONG).show();
-        }    else{
-            Toast.makeText(this,"Jawaban anda salah",Toast.LENGTH_SHORT).show();
+        if(mAnswerShown){
+            Toast.makeText(this,"Curang tidak diizinkan",Toast.LENGTH_LONG).show();
+        }else{
+            if(answer&&key){
+                Toast.makeText(this,"Jawaban anda benar",Toast.LENGTH_LONG).show();
+            }    else{
+                Toast.makeText(this,"Jawaban anda salah",Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
 
     private void updateQuestion(){
@@ -86,6 +107,19 @@ public class QuizActivity extends AppCompatActivity {
         questionText.setText(mQuestionsBank[quesNum].getTextResId());
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_OK){
+            return;
+        }
+
+        if(requestCode==0){
+            if (data == null) {
+                return;
+            }
+            mAnswerShown=data.getBooleanExtra("isAnwerShown",false);
+        }
+    }
 
     @Override
     public void onStart(){
